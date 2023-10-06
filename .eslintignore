@@ -1,1 +1,8 @@
 .eslintrc.cjs
+.lintstagedrc
+pre-commit
+README.md
+package.json
+pnpm-lock.yaml
+vite.config.ts
+.commitlintrc.cjs
