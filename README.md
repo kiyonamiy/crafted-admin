@@ -14,3 +14,5 @@
 4. 集成 commit-lint，参考 [commitlint 官网](https://github.com/conventional-changelog/commitlint)；
 5. 使用 .module.less 作为项目样式语言；
 6. 接入 react-router-dom；
+7. 接入 axios，封装 request；
+8. 使用 vite-plugin-mock 做本地 mock；
