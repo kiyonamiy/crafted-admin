@@ -1,13 +1,12 @@
-import classnames from "classnames";
+import { useRef } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import styles from "./App.module.less";
+import { ROUTES } from "./routes";
 
 function App() {
-  return (
-    <div className={styles.container}>
-      <span className={classnames(styles.text)}>Hello World</span>
-    </div>
-  );
+  const routerRef = useRef(createBrowserRouter(ROUTES));
+  // useEffect(() => {}, []);
+  return <RouterProvider router={routerRef.current} />;
 }
 
 export default App;
