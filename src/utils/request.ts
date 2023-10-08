@@ -1,3 +1,4 @@
+import { message } from "antd";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 export interface RequestOptions {
@@ -10,13 +11,11 @@ export interface RequestOptions {
 
 export interface ResponseData<T> {
   code: number;
-  data: T | null | undefined;
+  data: T | null;
   message?: string;
 }
 
-const request = async <T>(
-  options: RequestOptions,
-): Promise<ResponseData<T>> => {
+const request = async <T>(options: RequestOptions): Promise<T | null> => {
   const { method = "get", url, data, query, header } = options;
 
   let processedUrl = url;
@@ -58,7 +57,7 @@ const request = async <T>(
       if (axiosResponse.data.code !== 0) {
         return Promise.reject(axiosResponse.data);
       }
-      return axiosResponse.data;
+      return axiosResponse.data.data;
     })
     .catch((error: ResponseData<T> | AxiosError) => {
       const errorMessage = error.message;
@@ -67,7 +66,7 @@ const request = async <T>(
         // TODO history.replace("/login");
         // TODO 部分页面不需要做跳转
       }
-      // TODO message.error(errorMessage);
+      void message.error(errorMessage);
       return Promise.reject(errorMessage);
     });
 };

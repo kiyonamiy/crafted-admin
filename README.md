@@ -4,7 +4,6 @@
 
 - node >= v18.15.0；
 - pnpm >= 8.8.0；
-- VSCode 插件：CSS Module、CSS Module、ESLint、Prettier（并设置 defaultFormatter）；
 
 ## 项目初始化
 
@@ -16,3 +15,11 @@
 6. 接入 react-router-dom；
 7. 接入 axios，封装 request；
 8. 使用 vite-plugin-mock 做本地 mock；
+9. 接入 antd、formily、localforage；
+
+## 开发 TIPS
+
+- VSCode 插件：CSS Module、CSS Module、ESLint、Prettier（并设置 defaultFormatter）；
+- 不直接操作 localStorage，而是使用 localforage；所有的 key 值均需写在 local-key 中（不能直接写常量）；
+- 不额外使用 index.ts 做一次 import 再 export；
+- 全程使用 formily 来做表单相关开发；不额外引入 @formily/antd（因为滞后），使用 antd 组件改造成 formily 组件；

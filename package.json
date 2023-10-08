@@ -12,8 +12,14 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
+    "@formily/core": "^2.2.29",
+    "@formily/react": "^2.2.29",
+    "antd": "^5.9.4",
     "axios": "^1.5.1",
     "classnames": "^2.3.2",
+    "crypto-js": "^4.1.1",
+    "localforage": "^1.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0"
@@ -21,6 +27,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.7.2",
     "@commitlint/config-conventional": "^17.7.0",
+    "@types/crypto-js": "^4.1.2",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

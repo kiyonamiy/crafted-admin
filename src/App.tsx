@@ -1,3 +1,5 @@
+import "@/style/base/normalize.less";
+
 import { useRef } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
