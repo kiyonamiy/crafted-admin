@@ -15,7 +15,7 @@ import { LoginTypeEnum } from "@/constants/login-type.ts";
 import * as BaseService from "@/services/base.ts";
 import { LoginResult } from "@/types/base.ts";
 
-import { VerifyCode } from "./components/verify-code.tsx";
+import { VerifyCode } from "./components/verify-code.tsx/index.tsx";
 
 function Login() {
   const navigate = useNavigate();

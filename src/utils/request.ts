@@ -1,5 +1,9 @@
 import { message } from "antd";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import localforage from "localforage";
+
+import { LocalKeyEnum } from "@/constants/local-key";
+import { LoginResult } from "@/types/base";
 
 export interface RequestOptions {
   url: string;
@@ -35,13 +39,18 @@ const request = async <T>(options: RequestOptions): Promise<T | null> => {
     }
   }
 
+  // 获取 token
+  const token = await localforage
+    .getItem<LoginResult>(LocalKeyEnum.LOGIN_RESULT)
+    .then((loginResult) => loginResult?.token);
+  // 发起请求
   return axios
     .request<ResponseData<T>>({
       url: processedUrl,
       method,
       data,
       headers: {
-        // Authorization: Taro.getStorageSync("token"), // TODO
+        Authorization: token,
         "Content-Type": "application/json",
         Accept: "application/json",
         ...header,
@@ -59,14 +68,19 @@ const request = async <T>(options: RequestOptions): Promise<T | null> => {
       }
       return axiosResponse.data.data;
     })
-    .catch((error: ResponseData<T> | AxiosError) => {
-      const errorMessage = error.message;
+    .catch(async (error: ResponseData<T> | AxiosError<ResponseData<T>>) => {
+      const errorMessage =
+        error instanceof AxiosError
+          ? error.response?.data.message
+          : error.message;
+      await message.error({
+        duration: 1.5,
+        content: errorMessage,
+      });
       // 未认证，跳转到登录页（此时一定是带了 token，但是过期了的）（未授权是 403，不做跳转）
-      if (error instanceof AxiosError && error?.response?.status === 404) {
-        // TODO history.replace("/login");
-        // TODO 部分页面不需要做跳转
+      if (error instanceof AxiosError && error?.response?.status === 401) {
+        window.location.replace("/login");
       }
-      void message.error(errorMessage);
       return Promise.reject(errorMessage);
     });
 };

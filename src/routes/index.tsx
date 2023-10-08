@@ -1,10 +1,12 @@
 import { Navigate, RouteObject } from "react-router-dom";
 
 import { Layout } from "@/components/layout";
-import PageNotFound from "@/modules/base/404";
-import Login from "@/modules/base/login";
-import PersonalInformation from "@/modules/user/personal-information";
-import RoleManagement from "@/modules/user/role-management";
+import PageNotFound from "@/pages/base/404";
+import Login from "@/pages/base/login";
+import PersonalInformation from "@/pages/user/personal-information";
+import RoleManagement from "@/pages/user/role-management";
+
+import { rootLoader } from "./loaders/root";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const ROUTES: RouteObject[] = [
@@ -12,6 +14,7 @@ export const ROUTES: RouteObject[] = [
   {
     path: "/",
     element: <Layout />,
+    loader: rootLoader,
     children: [
       {
         index: true,

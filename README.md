@@ -15,7 +15,7 @@
 6. 接入 react-router-dom；
 7. 接入 axios，封装 request；
 8. 使用 vite-plugin-mock 做本地 mock；
-9. 接入 antd、formily、localforage；
+9. 接入 antd、formily、localforage、@tanstack/react-query；
 
 ## 开发 TIPS
 

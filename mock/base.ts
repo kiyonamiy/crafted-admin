@@ -2,6 +2,7 @@ export default [
   {
     url: "/login",
     method: "post",
+    timeout: 1000,
     response: ({
       body,
     }: {
