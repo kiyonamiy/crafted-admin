@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { isArr, isValid } from "@formily/shared";
 import { useEffect, useRef, useState } from "react";
 
 interface IProps {
@@ -49,7 +48,7 @@ const calcFactor = <T>(value: T | T[], breakpointIndex: number): T => {
 };
 
 const factor = <T>(value: T | T[], breakpointIndex: number): T =>
-  isValid(value) ? calcFactor(value as any, breakpointIndex) : value;
+  value != null ? calcFactor(value as any, breakpointIndex) : value;
 
 const calculateProps: ICalculateProps = (target, props) => {
   const { clientWidth } = target;
@@ -77,7 +76,7 @@ const calculateProps: ICalculateProps = (target, props) => {
 export const useResponsiveFormLayout: IUseResponsiveFormLayout = (props) => {
   const ref = useRef<HTMLDivElement>(null);
   const { breakpoints } = props;
-  if (!isArr(breakpoints)) {
+  if (!Array.isArray(breakpoints)) {
     return { ref, props };
   }
   const [layoutProps, setLayout] = useState<any>(props);
