@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:mock": "MOCK=on vite",
+    "dev:mock": "cross-env MOCK=on vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives",
     "preview": "vite preview",
@@ -34,6 +34,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "cross-env": "^7.0.3",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-react": "^7.33.2",
