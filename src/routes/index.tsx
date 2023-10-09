@@ -1,11 +1,11 @@
 import { Navigate, RouteObject } from "react-router-dom";
 
-import { Layout } from "@/components/layout";
 import PageNotFound from "@/pages/base/404";
 import Login from "@/pages/base/login";
 import PersonalInformation from "@/pages/user/personal-information";
 import RoleManagement from "@/pages/user/role-management";
 
+import { Layout } from "./layout";
 import { rootLoader } from "./loaders/root";
 
 // eslint-disable-next-line react-refresh/only-export-components

@@ -12,7 +12,12 @@ function PersonalInformation() {
   if (fetchStatus === "fetching") {
     return <Spin />;
   }
-  return <div>{JSON.stringify(userInfo)}</div>;
+  return (
+    <div>
+      {JSON.stringify(userInfo)}
+      <div style={{ height: 1000, width: 20, background: "red" }}></div>
+    </div>
+  );
 }
 
 export default PersonalInformation;

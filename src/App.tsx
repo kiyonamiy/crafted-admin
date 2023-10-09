@@ -18,6 +18,12 @@ function App() {
           token: {
             colorPrimary: "#5A54F9",
           },
+          components: {
+            Layout: {
+              headerPadding: 0,
+              headerHeight: 48,
+            },
+          },
         }}
       >
         <RouterProvider router={routerRef.current} />

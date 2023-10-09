@@ -1,4 +1,3 @@
 export interface UserInfo {
-  nickname: string;
-  age: number;
+  nickName: string;
 }
