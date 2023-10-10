@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 import { LocalKeyEnum } from "@/constants/local-key";
 import { QueryKeyEnum } from "@/constants/query-key";
+import { RoutePathEnum } from "@/constants/route-path";
 import * as BaseService from "@/services/base";
 import * as UserService from "@/services/user";
 import { generateColorFromString } from "@/utils";
@@ -39,7 +40,7 @@ const Header: React.FC = () => {
       key: "1",
       label: "个人信息",
       onClick: () => {
-        navigate("/user/personal-information");
+        navigate(RoutePathEnum.PERSONAL_INFORMATION.path);
       },
     },
     {
@@ -49,7 +50,7 @@ const Header: React.FC = () => {
       onClick: async () => {
         await BaseService.logout();
         await localforage.removeItem(LocalKeyEnum.LOGIN_RESULT);
-        navigate("/");
+        navigate(RoutePathEnum.ROOT.path);
       },
     },
   ];

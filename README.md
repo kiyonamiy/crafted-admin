@@ -23,3 +23,4 @@
 - 不直接操作 localStorage，而是使用 localforage；所有的 key 值均需写在 local-key 中（不能直接写常量）；
 - 不额外使用 index.ts 做一次 import 再 export；
 - 全程使用 formily 来做表单相关开发；不额外引入 @formily/antd（因为滞后），使用 antd 组件改造成 formily 组件；
+- navigate 不直接填写 path，而是要使用 RoutePathEnum.XX.path；

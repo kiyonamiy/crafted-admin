@@ -12,6 +12,7 @@ import FormLayout from "@/components/form/form-layout/index.tsx";
 import Submit from "@/components/form/submit";
 import { LocalKeyEnum } from "@/constants/local-key.ts";
 import { LoginTypeEnum } from "@/constants/login-type.ts";
+import { RoutePathEnum } from "@/constants/route-path.tsx";
 import * as BaseService from "@/services/base.ts";
 import { LoginResult } from "@/types/base.ts";
 
@@ -54,7 +55,7 @@ function Login() {
       }
       if (loginResult != null) {
         await localforage.setItem(LocalKeyEnum.LOGIN_RESULT, loginResult);
-        navigate("/");
+        navigate(RoutePathEnum.ROOT.path);
       }
     },
     [navigate],
