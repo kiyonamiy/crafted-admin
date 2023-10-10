@@ -53,7 +53,7 @@ function Login() {
         });
       }
       if (loginResult != null) {
-        void localforage.setItem(LocalKeyEnum.LOGIN_RESULT, loginResult);
+        await localforage.setItem(LocalKeyEnum.LOGIN_RESULT, loginResult);
         navigate("/");
       }
     },

@@ -13,3 +13,10 @@ export async function login(
     data,
   });
 }
+
+export async function logout() {
+  return request({
+    url: "/logout",
+    method: "post",
+  });
+}

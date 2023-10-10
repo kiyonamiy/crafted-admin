@@ -6,7 +6,7 @@ import * as UserService from "@/services/user";
 
 function RoleManagement() {
   const { fetchStatus } = useQuery({
-    queryKey: [QueryKeyEnum.GET_USER_INFO],
+    queryKey: [QueryKeyEnum.GET_ROLE_LIST],
     queryFn: UserService.getRoleList,
     retry: false,
     staleTime: 0,

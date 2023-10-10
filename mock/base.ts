@@ -45,4 +45,22 @@ export default [
       };
     },
   },
+  {
+    url: "/logout",
+    method: "post",
+    timeout: 500,
+    response: ({
+      body,
+    }: {
+      body: (
+        | { username: string; password: string }
+        | { phone: string; verifyCode: string }
+      ) & { loginType: 0 | 1 };
+    }) => {
+      return {
+        code: 0,
+        message: "操作成功",
+      };
+    },
+  },
 ];

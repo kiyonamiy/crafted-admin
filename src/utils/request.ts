@@ -7,7 +7,7 @@ import { LoginResult } from "@/types/base";
 
 export interface RequestOptions {
   url: string;
-  method?: "get" | "post" | "put" | "delete";
+  method: "get" | "post" | "put" | "delete";
   data?: Record<string, unknown>;
   query?: Record<string, string>; // 用于 url 拼接
   header?: Record<string, unknown>;
@@ -20,7 +20,7 @@ export interface ResponseData<T> {
 }
 
 const request = async <T>(options: RequestOptions): Promise<T | null> => {
-  const { method = "get", url, data, query, header } = options;
+  const { method, url, data, query, header } = options;
 
   let processedUrl = url;
 

@@ -42,10 +42,45 @@ export default [
     timeout: 1000,
     response: ({ body, query }) => {
       return {
-        code: 401,
-        message: "认证失败",
+        code: 0,
+        message: "操作成功",
+        data: [],
       };
     },
-    statusCode: 401,
+    // statusCode: 401,
+  },
+  {
+    url: "/user/permissions",
+    method: "get",
+    timeout: 500,
+    response: () => {
+      return {
+        code: 0,
+        message: "操作成功",
+        data: [
+          {
+            permissionName: "个人信息",
+            permissionType: 2,
+            permissionCode: "GET#manager:base:getUserInfo",
+            url: "/user/getUserInfo",
+            urlMethod: "GET",
+          },
+          {
+            permissionName: "成员列表",
+            permissionType: 2,
+            permissionCode: "GET#manager:member:list",
+            url: "/user/member/list",
+            urlMethod: "GET",
+          },
+          {
+            permissionName: "角色列表",
+            permissionType: 2,
+            permissionCode: "GET#manager:role:list",
+            url: "/user/role/list",
+            urlMethod: "GET",
+          },
+        ],
+      };
+    },
   },
 ];

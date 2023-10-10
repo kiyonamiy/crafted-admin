@@ -1,30 +1,58 @@
-import * as Icons from "@ant-design/icons";
 import { useQuery } from "@tanstack/react-query";
-import { Avatar, Button, Layout as AntLayout, Spin, theme } from "antd";
+import {
+  Avatar,
+  Dropdown,
+  Layout as AntLayout,
+  MenuProps,
+  Spin,
+  theme,
+} from "antd";
+import localforage from "localforage";
+import { useNavigate } from "react-router-dom";
 
+import { LocalKeyEnum } from "@/constants/local-key";
 import { QueryKeyEnum } from "@/constants/query-key";
+import * as BaseService from "@/services/base";
 import * as UserService from "@/services/user";
 import { generateColorFromString } from "@/utils";
 
 import styles from "./index.module.less";
 
-interface HeaderProps {
-  collapsed: boolean;
-  setCollapsed: (collapsed: boolean) => void;
-}
-
-const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
-  const { collapsed, setCollapsed } = props;
+const Header: React.FC = () => {
   const {
     token: { colorBgContainer, paddingContentHorizontal },
   } = theme.useToken();
+
+  const navigate = useNavigate();
 
   const { data: userInfo, status } = useQuery({
     queryKey: [QueryKeyEnum.GET_USER_INFO],
     queryFn: UserService.getUserInfo,
   });
 
+  console.log("userInfo ==>>", userInfo);
+
   const nickName = userInfo?.nickName ?? "";
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: "个人信息",
+      onClick: () => {
+        navigate("/user/personal-information");
+      },
+    },
+    {
+      key: "2",
+      label: "退出登录",
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onClick: async () => {
+        await BaseService.logout();
+        await localforage.removeItem(LocalKeyEnum.LOGIN_RESULT);
+        navigate("/");
+      },
+    },
+  ];
 
   return (
     <AntLayout.Header
@@ -34,23 +62,18 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
         padding: `0 ${paddingContentHorizontal}px`,
       }}
     >
-      <Button
-        type="text"
-        icon={
-          collapsed ? <Icons.MenuUnfoldOutlined /> : <Icons.MenuFoldOutlined />
-        }
-        onClick={() => setCollapsed(!collapsed)}
-      />
       <Spin spinning={status === "loading"}>
-        <Avatar
-          style={{
-            backgroundColor: generateColorFromString(nickName),
-            verticalAlign: "middle",
-          }}
-          size="default"
-        >
-          {nickName.slice(0, 1)}
-        </Avatar>
+        <Dropdown menu={{ items }}>
+          <Avatar
+            style={{
+              backgroundColor: generateColorFromString(nickName),
+              verticalAlign: "middle",
+            }}
+            size="default"
+          >
+            {nickName.slice(0, 1)}
+          </Avatar>
+        </Dropdown>
       </Spin>
     </AntLayout.Header>
   );
