@@ -1,6 +1,7 @@
 import * as Icons from "@ant-design/icons";
 import { createForm } from "@formily/core";
 import { Field, FormProvider } from "@formily/react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Card, Input, Tabs } from "antd";
 import md5 from "crypto-js/md5";
 import localforage from "localforage";
@@ -12,6 +13,7 @@ import FormLayout from "@/components/form/form-layout/index.tsx";
 import Submit from "@/components/form/submit";
 import { LocalKeyEnum } from "@/constants/local-key.ts";
 import { LoginTypeEnum } from "@/constants/login-type.ts";
+import { QueryKeyEnum } from "@/constants/query-key.ts";
 import { RoutePathEnum } from "@/constants/route-path.tsx";
 import * as BaseService from "@/services/base.ts";
 import { LoginResult } from "@/types/base.ts";
@@ -20,6 +22,7 @@ import { VerifyCode } from "./components/verify-code.tsx/index.tsx";
 
 function Login() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const normalLoginFormRef = useRef(
     createForm({
@@ -55,7 +58,11 @@ function Login() {
       }
       if (loginResult != null) {
         await localforage.setItem(LocalKeyEnum.LOGIN_RESULT, loginResult);
-        navigate(RoutePathEnum.ROOT.path);
+        // 将缓存失效，刷新 permission
+        await queryClient.invalidateQueries([QueryKeyEnum.PERMISSIONS]);
+        setTimeout(() => {
+          navigate(RoutePathEnum.ROOT.path);
+        }, 1500);
       }
     },
     [navigate],

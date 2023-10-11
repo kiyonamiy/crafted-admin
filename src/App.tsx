@@ -2,14 +2,11 @@ import "@/style/base/normalize.less";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConfigProvider, theme } from "antd";
-import { useRef } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { ROUTES } from "./routes";
+import Router from "@/components/Router";
 
 const queryClient = new QueryClient();
 function App() {
-  const routerRef = useRef(createBrowserRouter(ROUTES));
   return (
     <QueryClientProvider client={queryClient}>
       <ConfigProvider
@@ -26,7 +23,7 @@ function App() {
           },
         }}
       >
-        <RouterProvider router={routerRef.current} />
+        <Router />
       </ConfigProvider>
     </QueryClientProvider>
   );

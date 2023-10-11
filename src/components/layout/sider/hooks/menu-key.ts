@@ -12,16 +12,14 @@ export const useMenuKey = () => {
         return true;
       }
     });
-    if (result == null) {
-      throw new Error(
-        `selectedKey that matches “${pathname}” not found, please check`,
-      );
-    }
-    return result[0];
+    return result?.[0];
   }, [pathname]);
 
   const openKeys = useMemo(() => {
     const result: string[] = [];
+    if (selectedKey == null) {
+      return result;
+    }
     const recursive = (openKey: string) => {
       result.push(openKey);
       Object.entries(RoutePathEnum).forEach(([key, value]) => {

@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   Avatar,
   Dropdown,
@@ -25,13 +25,12 @@ const Header: React.FC = () => {
   } = theme.useToken();
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { data: userInfo, status } = useQuery({
     queryKey: [QueryKeyEnum.GET_USER_INFO],
     queryFn: UserService.getUserInfo,
   });
-
-  console.log("userInfo ==>>", userInfo);
 
   const nickName = userInfo?.nickName ?? "";
 
@@ -50,6 +49,7 @@ const Header: React.FC = () => {
       onClick: async () => {
         await BaseService.logout();
         await localforage.removeItem(LocalKeyEnum.LOGIN_RESULT);
+        await queryClient.invalidateQueries([QueryKeyEnum.PERMISSIONS]);
         navigate(RoutePathEnum.ROOT.path);
       },
     },
