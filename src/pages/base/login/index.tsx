@@ -8,17 +8,17 @@ import localforage from "localforage";
 import { useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-import FormItem from "@/components/form/form-item/index.tsx";
-import FormLayout from "@/components/form/form-layout/index.tsx";
+import FormItem from "@/components/form/form-item/index";
+import FormLayout from "@/components/form/form-layout/index";
 import Submit from "@/components/form/submit";
-import { LocalKeyEnum } from "@/constants/local-key.ts";
-import { LoginTypeEnum } from "@/constants/login-type.ts";
-import { QueryKeyEnum } from "@/constants/query-key.ts";
-import { RoutePathEnum } from "@/constants/route-path.tsx";
-import * as BaseService from "@/services/base.ts";
-import { LoginResult } from "@/types/base.ts";
+import { LocalKeyEnum } from "@/constants/local-key";
+import { LoginTypeEnum } from "@/constants/login-type";
+import { QueryKeyEnum } from "@/constants/query-key";
+import { RoutePathEnum } from "@/constants/route-path";
+import * as BaseService from "@/services/base";
+import { LoginResult } from "@/types/base";
 
-import { VerifyCode } from "./components/verify-code.tsx/index.tsx";
+import { VerifyCode } from "./components/verify-code";
 
 function Login() {
   const navigate = useNavigate();
