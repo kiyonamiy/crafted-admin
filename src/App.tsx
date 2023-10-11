@@ -3,7 +3,7 @@ import "@/style/base/normalize.less";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConfigProvider, theme } from "antd";
 
-import Router from "@/components/Router";
+import Router from "@/components/router";
 
 const queryClient = new QueryClient();
 function App() {

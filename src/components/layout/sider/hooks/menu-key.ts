@@ -1,19 +1,10 @@
 import { useMemo } from "react";
-import { useLocation } from "react-router-dom";
 
+import { useCurrentRoutePathKv } from "@/components/router/hooks/router";
 import { RoutePathEnum } from "@/constants/route-path";
 
 export const useMenuKey = () => {
-  const { pathname } = useLocation();
-
-  const selectedKey = useMemo(() => {
-    const result = Object.entries(RoutePathEnum).find(([, value]) => {
-      if (pathname === value.path) {
-        return true;
-      }
-    });
-    return result?.[0];
-  }, [pathname]);
+  const [selectedKey] = useCurrentRoutePathKv();
 
   const openKeys = useMemo(() => {
     const result: string[] = [];

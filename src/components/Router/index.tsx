@@ -1,7 +1,7 @@
 import { Spin } from "antd";
 import { RouterProvider } from "react-router-dom";
 
-import { useRouter } from "@/components/Router/hooks/router";
+import { useRouter } from "@/components/router/hooks/router";
 
 export default function Router() {
   const router = useRouter();

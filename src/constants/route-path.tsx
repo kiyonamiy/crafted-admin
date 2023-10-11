@@ -11,6 +11,7 @@ export enum RouteKeyEnum {
   USER = "USER",
   PERSONAL_INFORMATION = "PERSONAL_INFORMATION",
   ROLE_MANAGEMENT = "ROLE_MANAGEMENT",
+  PAGE_403 = "PAGE_403",
   PAGE_404 = "PAGE_404",
 }
 
@@ -64,6 +65,12 @@ export const RoutePathEnum: Record<RouteKeyEnum, RoutePath> = {
     description: "角色管理",
     parentKey: RouteKeyEnum.USER,
     menu: {},
+  },
+  [RouteKeyEnum.PAGE_403]: {
+    path: "/403",
+    element: import("@/pages/base/403"),
+    description: "403",
+    parentKey: RouteKeyEnum.ROOT,
   },
   [RouteKeyEnum.PAGE_404]: {
     path: "*",

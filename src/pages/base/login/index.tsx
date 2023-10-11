@@ -60,12 +60,10 @@ function Login() {
         await localforage.setItem(LocalKeyEnum.LOGIN_RESULT, loginResult);
         // 将缓存失效，刷新 permission
         await queryClient.invalidateQueries([QueryKeyEnum.PERMISSIONS]);
-        setTimeout(() => {
-          navigate(RoutePathEnum.ROOT.path);
-        }, 1500);
+        navigate(RoutePathEnum.ROOT.path);
       }
     },
-    [navigate],
+    [],
   );
 
   return (

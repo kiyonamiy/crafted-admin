@@ -36,14 +36,14 @@ const Header: React.FC = () => {
 
   const items: MenuProps["items"] = [
     {
-      key: "1",
+      key: "personal-information",
       label: "个人信息",
       onClick: () => {
         navigate(RoutePathEnum.PERSONAL_INFORMATION.path);
       },
     },
     {
-      key: "2",
+      key: "logout",
       label: "退出登录",
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onClick: async () => {
