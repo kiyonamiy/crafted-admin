@@ -1,4 +1,5 @@
 import "@/style/base/normalize.less";
+import "@/style/base/html.less";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConfigProvider, theme } from "antd";
