@@ -10,7 +10,9 @@ export enum RouteKeyEnum {
   USER = "USER",
   PERSONAL_INFORMATION = "PERSONAL_INFORMATION",
   ROLE_MANAGEMENT = "ROLE_MANAGEMENT",
-  PAGE_403 = "PAGE_403",
+  CUSTOM_MANAGEMENT = "CUSTOM_MANAGEMENT",
+  CONFIGURATION_MANAGEMENT = "CONFIGURATION_MANAGEMENT",
+  CONFIGURATION = "CONFIGURATION",
   PAGE_404 = "PAGE_404",
 }
 
@@ -64,10 +66,24 @@ export const RoutePathEnum: Record<RouteKeyEnum, RoutePath> = {
     parentKey: RouteKeyEnum.USER,
     menu: {},
   },
-  [RouteKeyEnum.PAGE_403]: {
-    path: "/forbidden",
-    element: import("@/pages/base/403"),
-    description: "未授权",
+  [RouteKeyEnum.CUSTOM_MANAGEMENT]: {
+    path: "/custom-management",
+    description: "自定义管理",
+    parentKey: RouteKeyEnum.ROOT,
+    menu: {
+      icon: <Icons.HomeOutlined />,
+    },
+  },
+  [RouteKeyEnum.CONFIGURATION_MANAGEMENT]: {
+    path: "/custom-management/configuration-management",
+    // permissionCodes: [PermissionCodeEnum.CUSTOM.CONFIGURATION_LIST],
+    description: "组态管理",
+    parentKey: RouteKeyEnum.CUSTOM_MANAGEMENT,
+    menu: {},
+  },
+  [RouteKeyEnum.CONFIGURATION]: {
+    path: "/configuration",
+    description: "组态编辑页",
   },
   [RouteKeyEnum.PAGE_404]: {
     path: "*",
