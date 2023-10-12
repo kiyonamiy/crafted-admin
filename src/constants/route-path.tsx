@@ -1,6 +1,5 @@
 import * as Icons from "@ant-design/icons";
 
-import { rootLoader } from "@/constants/loaders/root";
 import { PermissionCodeEnum } from "@/constants/permission";
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -19,7 +18,7 @@ export interface RoutePath {
   path: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   element?: Promise<any>;
-  loader?: () => Promise<Response | null>;
+  // loader?: () => Promise<Response | null>;
   description: string;
   permissionCodes?: string[];
   parentKey?: RouteKeyEnum;
@@ -40,7 +39,6 @@ export const RoutePathEnum: Record<RouteKeyEnum, RoutePath> = {
     path: "/",
     element: import("@/components/layout"),
     description: "根路由",
-    loader: rootLoader,
   },
   [RouteKeyEnum.USER]: {
     path: "/user",
@@ -67,15 +65,15 @@ export const RoutePathEnum: Record<RouteKeyEnum, RoutePath> = {
     menu: {},
   },
   [RouteKeyEnum.PAGE_403]: {
-    path: "/403",
+    path: "/forbidden",
     element: import("@/pages/base/403"),
-    description: "403",
+    description: "未授权",
     parentKey: RouteKeyEnum.ROOT,
   },
   [RouteKeyEnum.PAGE_404]: {
     path: "*",
     element: import("@/pages/base/404"),
-    description: "404",
+    description: "未认证",
     parentKey: RouteKeyEnum.ROOT,
   },
 };

@@ -1,10 +1,8 @@
 import * as Icons from "@ant-design/icons";
 import { createForm } from "@formily/core";
 import { Field, FormProvider } from "@formily/react";
-import { useQueryClient } from "@tanstack/react-query";
 import { Card, Input, Tabs } from "antd";
 import md5 from "crypto-js/md5";
-import localforage from "localforage";
 import { useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,16 +11,16 @@ import FormLayout from "@/components/form/form-layout/index";
 import Submit from "@/components/form/submit";
 import { LocalKeyEnum } from "@/constants/local-key";
 import { LoginTypeEnum } from "@/constants/login-type";
-import { QueryKeyEnum } from "@/constants/query-key";
 import { RoutePathEnum } from "@/constants/route-path";
 import * as BaseService from "@/services/base";
+import * as UserService from "@/services/user";
 import { LoginResult } from "@/types/base";
+import { LocalStorageUtils } from "@/utils/local-storage";
 
 import { VerifyCode } from "./components/verify-code";
 
 function Login() {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
   const normalLoginFormRef = useRef(
     createForm({
@@ -57,12 +55,16 @@ function Login() {
         });
       }
       if (loginResult != null) {
-        await localforage.setItem(LocalKeyEnum.LOGIN_RESULT, loginResult);
-        // 将缓存失效，刷新 permission
-        await queryClient.invalidateQueries([QueryKeyEnum.PERMISSIONS]);
+        LocalStorageUtils.setItem(LocalKeyEnum.LOGIN_RESULT, loginResult);
+        // 缓存权限（具体权限交由各个 route 的 loader 进行判断）
+        const permissions = await UserService.getPermissions();
+        if (permissions != null) {
+          LocalStorageUtils.setItem(LocalKeyEnum.PERMISSIONS, permissions);
+        }
         navigate(RoutePathEnum.ROOT.path);
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
@@ -78,86 +80,99 @@ function Login() {
       }}
     >
       <Card style={{ width: 400 }}>
-        <Tabs style={{ overflow: "visible", marginTop: -10 }}>
-          <Tabs.TabPane key="1" tab="账密登录">
-            <FormProvider form={normalLoginFormRef.current}>
-              <FormLayout layout="vertical" size="large">
-                <Field
-                  name="username"
-                  // title="用户名"
-                  required
-                  decorator={[FormItem]}
-                  component={[
-                    Input,
-                    {
-                      prefix: <Icons.UserOutlined />,
-                      placeholder: "用户名",
-                    },
-                  ]}
-                />
-                <Field
-                  name="password"
-                  // title="密码"
-                  required
-                  decorator={[FormItem]}
-                  component={[
-                    Input.Password,
-                    {
-                      prefix: <Icons.LockOutlined />,
-                      placeholder: "密码",
-                    },
-                  ]}
-                />
-                <Submit block size="large" onSubmit={submit}>
-                  登录
-                </Submit>
-              </FormLayout>
-            </FormProvider>
-          </Tabs.TabPane>
-          <Tabs.TabPane key="2" tab="手机登录">
-            <FormProvider form={phoneLoginFormRef.current}>
-              <FormLayout layout="vertical" size="large">
-                <Field
-                  name="phone"
-                  // title="手机号"
-                  required
-                  validator="phone"
-                  decorator={[FormItem]}
-                  component={[
-                    Input,
-                    {
-                      prefix: <Icons.PhoneOutlined />,
-                      placeholder: "手机号",
-                    },
-                  ]}
-                />
-                <Field
-                  name="verifyCode"
-                  // title="验证码"
-                  required
-                  reactions={(field) => {
-                    const phone = field.query(".phone");
-                    field.setComponentProps({
-                      readyPost: !!(phone.get("valid") && phone.get("value")),
-                      phoneNumber: phone.get("value") as string,
-                    });
-                  }}
-                  decorator={[FormItem]}
-                  component={[
-                    VerifyCode,
-                    {
-                      prefix: <Icons.LockOutlined />,
-                      placeholder: "验证码",
-                    },
-                  ]}
-                />
-                <Submit block size="large" onSubmit={submit}>
-                  登录
-                </Submit>
-              </FormLayout>
-            </FormProvider>
-          </Tabs.TabPane>
-        </Tabs>
+        <Tabs
+          style={{ overflow: "visible", marginTop: -10 }}
+          items={[
+            {
+              key: "normal",
+              label: "账密登录",
+              children: (
+                <FormProvider form={normalLoginFormRef.current}>
+                  <FormLayout layout="vertical" size="large">
+                    <Field
+                      name="username"
+                      // title="用户名"
+                      required
+                      decorator={[FormItem]}
+                      component={[
+                        Input,
+                        {
+                          prefix: <Icons.UserOutlined />,
+                          placeholder: "用户名",
+                        },
+                      ]}
+                    />
+                    <Field
+                      name="password"
+                      // title="密码"
+                      required
+                      decorator={[FormItem]}
+                      component={[
+                        Input.Password,
+                        {
+                          prefix: <Icons.LockOutlined />,
+                          placeholder: "密码",
+                        },
+                      ]}
+                    />
+                    <Submit block size="large" onSubmit={submit}>
+                      登录
+                    </Submit>
+                  </FormLayout>
+                </FormProvider>
+              ),
+            },
+            {
+              key: "phone",
+              label: "手机登录",
+              children: (
+                <FormProvider form={phoneLoginFormRef.current}>
+                  <FormLayout layout="vertical" size="large">
+                    <Field
+                      name="phone"
+                      // title="手机号"
+                      required
+                      validator="phone"
+                      decorator={[FormItem]}
+                      component={[
+                        Input,
+                        {
+                          prefix: <Icons.PhoneOutlined />,
+                          placeholder: "手机号",
+                        },
+                      ]}
+                    />
+                    <Field
+                      name="verifyCode"
+                      // title="验证码"
+                      required
+                      reactions={(field) => {
+                        const phone = field.query(".phone");
+                        field.setComponentProps({
+                          readyPost: !!(
+                            phone.get("valid") && phone.get("value")
+                          ),
+                          phoneNumber: phone.get("value") as string,
+                        });
+                      }}
+                      decorator={[FormItem]}
+                      component={[
+                        VerifyCode,
+                        {
+                          prefix: <Icons.LockOutlined />,
+                          placeholder: "验证码",
+                        },
+                      ]}
+                    />
+                    <Submit block size="large" onSubmit={submit}>
+                      登录
+                    </Submit>
+                  </FormLayout>
+                </FormProvider>
+              ),
+            },
+          ]}
+        />
         <div
           style={{
             display: "flex",

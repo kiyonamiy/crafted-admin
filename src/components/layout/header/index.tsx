@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import {
   Avatar,
   Dropdown,
@@ -7,7 +7,6 @@ import {
   Spin,
   theme,
 } from "antd";
-import localforage from "localforage";
 import { useNavigate } from "react-router-dom";
 
 import { LocalKeyEnum } from "@/constants/local-key";
@@ -16,6 +15,7 @@ import { RoutePathEnum } from "@/constants/route-path";
 import * as BaseService from "@/services/base";
 import * as UserService from "@/services/user";
 import { generateColorFromString } from "@/utils";
+import { LocalStorageUtils } from "@/utils/local-storage";
 
 import styles from "./index.module.less";
 
@@ -25,7 +25,6 @@ const Header: React.FC = () => {
   } = theme.useToken();
 
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
   const { data: userInfo, status } = useQuery({
     queryKey: [QueryKeyEnum.GET_USER_INFO],
@@ -48,8 +47,8 @@ const Header: React.FC = () => {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onClick: async () => {
         await BaseService.logout();
-        await localforage.removeItem(LocalKeyEnum.LOGIN_RESULT);
-        await queryClient.invalidateQueries([QueryKeyEnum.PERMISSIONS]);
+        LocalStorageUtils.removeItem(LocalKeyEnum.LOGIN_RESULT);
+        LocalStorageUtils.removeItem(LocalKeyEnum.PERMISSIONS);
         navigate(RoutePathEnum.ROOT.path);
       },
     },

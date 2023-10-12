@@ -20,7 +20,7 @@ export const pickDataProps = (props: Record<string, unknown> = {}) => {
  * @param inputText 文字
  * @returns
  */
-export const generateColorFromString = (inputText: string) => {
+export const generateColorFromString = (inputText: string): string => {
   // 将输入文本的字符总和映射到0到16777215的整数范围
   let hash = 0;
   for (let i = 0; i < inputText.length; i++) {

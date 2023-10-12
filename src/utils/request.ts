@@ -1,9 +1,10 @@
 import { message } from "antd";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import localforage from "localforage";
 
 import { LocalKeyEnum } from "@/constants/local-key";
 import { LoginResult } from "@/types/base";
+
+import { LocalStorageUtils } from "./local-storage";
 
 export interface RequestOptions {
   url: string;
@@ -40,9 +41,10 @@ const request = async <T>(options: RequestOptions): Promise<T | null> => {
   }
 
   // 获取 token
-  const token = await localforage
-    .getItem<LoginResult>(LocalKeyEnum.LOGIN_RESULT)
-    .then((loginResult) => loginResult?.token);
+  const loginResult = LocalStorageUtils.getItem<LoginResult>(
+    LocalKeyEnum.LOGIN_RESULT,
+  );
+  const token = loginResult?.token;
   // 发起请求
   return axios
     .request<ResponseData<T>>({

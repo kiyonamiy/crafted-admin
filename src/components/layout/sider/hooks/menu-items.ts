@@ -3,11 +3,10 @@ import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { RouteKeyEnum, RoutePathEnum } from "@/constants/route-path";
-import { usePermissions } from "@/hooks/permissions";
+import { checkPermission } from "@/utils/permission";
 
 export const useMenuItems = () => {
   const navigate = useNavigate();
-  const { checkPermission } = usePermissions();
 
   const generateMenuItems = useCallback(
     (parentKey?: RouteKeyEnum): MenuProps["items"] => {
@@ -46,7 +45,8 @@ export const useMenuItems = () => {
       });
       return result;
     },
-    [checkPermission],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   const menuItems = useMemo(
