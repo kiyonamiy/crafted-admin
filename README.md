@@ -24,7 +24,7 @@
 - 不额外使用 index.ts 做一次 import 再 export；
 - 全程使用 formily 来做表单相关开发；不额外引入 @formily/antd（因为滞后），使用 antd 组件改造成 formily 组件；
 - navigate 不直接填写 path，而是要使用 RoutePathEnum.XX.path；
-- service 均 `import * as XxxService`，而不直接引用内部方法（目的是增加代码可读性，读到该行立马意识到是发起网络请求）；
+- service 导出均需外包一层 XxxService，而不是直接导出函数（目的是增加代码的可读性）；
 
 ## 关于本地缓存
 
@@ -39,12 +39,25 @@ TIPS：未测试（未兼容）大量缓存的情况。
 
 ## 关于认证和授权
 
+### 处理 401 Unauthorized 和 处理 403 Forbidden
+
+项目内部为每个带 permissionCodes 的路由添加一个默认的 loader，该 loader 会判断用户是否登录，用户是否有权限。
+
+当用户直接复制链接到浏览器进行访问时，会先进入 loader 进行判断：
+
+1. 若是无登录，则跳转至”登录页“；
+2. 若是无权限，则跳转至”无权限页“；
+
+### 处理 404 NotFound
+
+`RoutePathEnum` 中有一个 `path: '*'` 配置，用于拦截其他不认识的路由，跳转至 404 页面。
+
 ### 跳出至“登录页”时机
 
 用户何时会跳出至“登录页”？两个地方做了设置：
 
-1. 在加载根路由时，在 rootLoader 中，当 localforage 不存在 LOGIN_RESULT 时，表示用户未登录，redirect 跳出；
-2. 在任意请求时，在 request 中，当后端返回状态码为 401 时，表示用户登录凭证过期，window.location.replace 跳出；
+1. 在加载任意路由时，在 loader 中，当 `LocalStorageUtils` 不存在 `LOGIN_RESULT` 时，表示用户未登录，`redirect` 跳出（处理 401 方式）；
+2. 在任意请求时，在 request 中，当后端返回状态码为 401 时，表示用户登录凭证过期，`window.location.replace` 跳出；
 
 两处地方稍有重复，2 基本能 cover 1，但 1 用户体验好一些。
 
