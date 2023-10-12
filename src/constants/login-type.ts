@@ -1,7 +1,12 @@
 import { LoginType } from "@/types/base";
 
+enum KeyEnum {
+  NORMAL = "NORMAL",
+  PHONE = "PHONE",
+}
+
 export const LoginTypeEnum: Record<
-  "NORMAL" | "PHONE",
+  KeyEnum,
   {
     code: LoginType;
     description: string;

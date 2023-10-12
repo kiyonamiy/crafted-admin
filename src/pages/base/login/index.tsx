@@ -12,8 +12,8 @@ import Submit from "@/components/form/submit";
 import { LocalKeyEnum } from "@/constants/local-key";
 import { LoginTypeEnum } from "@/constants/login-type";
 import { RoutePathEnum } from "@/constants/route-path";
-import * as BaseService from "@/services/base";
-import * as UserService from "@/services/user";
+import { BaseService } from "@/services/base";
+import { UserService } from "@/services/user";
 import { LoginResult } from "@/types/base";
 import { LocalStorageUtils } from "@/utils/local-storage";
 

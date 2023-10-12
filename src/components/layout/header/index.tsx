@@ -12,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { LocalKeyEnum } from "@/constants/local-key";
 import { QueryKeyEnum } from "@/constants/query-key";
 import { RoutePathEnum } from "@/constants/route-path";
-import * as BaseService from "@/services/base";
-import * as UserService from "@/services/user";
+import { BaseService } from "@/services/base";
+import { UserService } from "@/services/user";
 import { generateColorFromString } from "@/utils";
 import { LocalStorageUtils } from "@/utils/local-storage";
 

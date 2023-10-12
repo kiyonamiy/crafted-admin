@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Spin } from "antd";
 
 import { QueryKeyEnum } from "@/constants/query-key";
-import * as UserService from "@/services/user";
+import { UserService } from "@/services/user";
 
 function RoleManagement() {
   const { fetchStatus } = useQuery({
