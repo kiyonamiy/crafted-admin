@@ -68,12 +68,10 @@ export const RoutePathEnum: Record<RouteKeyEnum, RoutePath> = {
     path: "/forbidden",
     element: import("@/pages/base/403"),
     description: "未授权",
-    parentKey: RouteKeyEnum.ROOT,
   },
   [RouteKeyEnum.PAGE_404]: {
     path: "*",
     element: import("@/pages/base/404"),
     description: "未认证",
-    parentKey: RouteKeyEnum.ROOT,
   },
 };

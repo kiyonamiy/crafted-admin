@@ -39,7 +39,7 @@ TIPS：未测试（未兼容）大量缓存的情况。
 
 ## 关于认证和授权
 
-### 处理 401 Unauthorized 和 处理 403 Forbidden
+### 处理 401 Unauthorized && 处理 403 Forbidden
 
 项目内部为每个带 permissionCodes 的路由添加一个默认的 loader，该 loader 会判断用户是否登录，用户是否有权限。
 

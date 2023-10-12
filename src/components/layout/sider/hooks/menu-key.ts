@@ -24,7 +24,7 @@ export const useMenuKey = () => {
   }, [selectedKey]);
 
   return {
-    selectedKeys: [selectedKey],
+    selectedKeys: selectedKey != null ? [selectedKey] : [],
     openKeys,
   };
 };
