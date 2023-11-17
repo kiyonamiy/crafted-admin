@@ -1,4 +1,0 @@
-export enum LocalKeyEnum {
-  LOGIN_RESULT = "LOGIN_RESULT",
-  PERMISSIONS = "PERMISSIONS",
-}

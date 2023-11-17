@@ -1,5 +1,12 @@
 # crafted-admin
 
+## 功能特点
+
+1. 基于最新 React 技术栈：React V18、React Router V6、Ant Design V5、Vite、TypeScript 等；
+2. 集成完备的项目规范工具：Prettier、ESLint、commit-lint、lint-staged、husky 等；
+3. 菜单、权限、路由一体化配置（配置见 src/constants/route-path.tsx）；
+4. 认证与授权；
+
 ## 环境要求
 
 - node >= v18.15.0；
@@ -26,8 +33,14 @@
 - 全程使用 formily 来做表单相关开发；不额外引入 @formily/antd（因为滞后），使用 antd 组件改造成 formily 组件；
 - navigate 不直接填写 path，而是要使用 RoutePathEnum.XX.path；
 - service 导出均需外包一层 XxxService，而不是直接导出函数（目的是增加代码的可读性）；
+- 所有需要登录后访问的路由，最少要加上 `permissionCodes: []`；无 `element` 的路由可不添加；
+- （涉及到分页请求数据的）不直接使用 antd 的 Table，而是使用 `@/components/table`；
 
-## 关于本地缓存
+## 关于 utils 说明
+
+1. 需要产生树状结构，可以优先考虑 `utils/index.tsx` 下的 `generateTree` 是否满足需求；
+
+### 关于本地缓存
 
 不直接使用 `localStorage`，而是使用 utils 文件夹下的 `LocalStorageUtils`。`LocalStorageUtils` 相较于 `localStorage`，具有“类型提示”、“对象缓存”、“同步请求”的能力，即：
 
