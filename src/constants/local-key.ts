@@ -1,0 +1,5 @@
+export enum LocalKeyEnum {
+  LOGIN_RESULT = "LOGIN_RESULT",
+  PERMISSIONS = "PERMISSIONS",
+  DICT_DATA_MAP = "DICT_DATA_MAP",
+}
