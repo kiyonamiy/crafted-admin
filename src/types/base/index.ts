@@ -1,5 +1,3 @@
-export type LoginType = 0 | 1;
-
 export interface LoginResponseData {
   id: string;
   /**

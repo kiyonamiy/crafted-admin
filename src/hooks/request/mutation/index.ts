@@ -8,8 +8,11 @@ type UseReqMutationOptions<P, R> = Pick<
 > &
   Omit<UseMutationOptions<R, string, P, unknown>, "mutationFn">;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const useReqMutation = <P extends Record<string, any>, R>(
+const useReqMutation = <
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  P extends Record<string, any> | undefined = undefined,
+  R = void,
+>(
   options: UseReqMutationOptions<P, R>,
 ) => {
   const { url, method, header, ...mutationOptions } = options;
