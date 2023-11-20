@@ -1,6 +1,6 @@
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 
-import useRequest, { RequestOptions } from "../common";
+import useRequest, { RequestOptions } from "../base";
 
 type UseReqMutationOptions<P, R> = Pick<
   RequestOptions,

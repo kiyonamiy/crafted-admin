@@ -1,5 +1,4 @@
 import useReqMutation from "@/hooks/request/mutation";
-import useReqQuery from "@/hooks/request/query";
 
 interface CreateTodoPayload {
   id: Date;
@@ -22,17 +21,9 @@ function DemoPage() {
     CreateTodoPayload,
     CreateTodoResponse
   >({
-    url: "https://www.baidu.com/",
-    method: "get",
+    url: "/ca/login",
+    method: "post",
   });
-
-  const todoQuery = useReqQuery({
-    queryKey: ["todoQuery"],
-    url: "https://www.baidu.com/",
-    method: "get",
-  });
-
-  console.log(todoQuery);
 
   return (
     <div>

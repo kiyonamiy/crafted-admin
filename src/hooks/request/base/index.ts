@@ -13,8 +13,12 @@ export interface RequestOptions {
   header?: Record<string, unknown>;
 }
 
+/**
+ * useRequest 是为 useReqMutation 和 useReqQuery 服务，请不要直接使用该 hooks。
+ */
 const useRequest = () => {
   const { message } = App.useApp();
+
   const request = useCallback(
     async <T>(options: RequestOptions): Promise<T> => {
       const { method, url, payload, header } = options;
@@ -77,10 +81,10 @@ const useRequest = () => {
           if (error instanceof AxiosError && error?.response?.status === 401) {
             // window.location.replace(RoutePathEnum.LOGIN.path);
           }
-          console.error(errorMessage);
           return Promise.reject(errorMessage);
         });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
   return request;
