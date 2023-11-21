@@ -1,7 +1,7 @@
 import useReqMutation from "@/hooks/request/mutation";
 import { LoginResponseData } from "@/types/base";
 
-import { LoginType } from "../../types";
+import { LoginType } from "../../../types";
 
 interface LoginPayload {
   account?: string;
@@ -14,7 +14,7 @@ interface LoginPayload {
  * 以页面维度做 service 的拆分
  * @returns
  */
-export const useLoginPageServices = () => {
+export const useServices = () => {
   const loginMutation = useReqMutation<LoginPayload, LoginResponseData>({
     url: "/ca/login",
     method: "post",

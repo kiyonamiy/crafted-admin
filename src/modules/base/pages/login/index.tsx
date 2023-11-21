@@ -14,7 +14,7 @@ import { LoginResponseData } from "@/types/base";
 import { LocalStorageUtils } from "@/utils/local-storage";
 
 import { LoginTypeEnum } from "../../constants/login-type";
-import { useLoginPageServices } from "../../hooks/services/page-login";
+import { useServices } from "./hooks/services";
 
 function Login() {
   const normalLoginFormRef = useRef(
@@ -29,7 +29,7 @@ function Login() {
     }),
   );
 
-  const { loginMutation } = useLoginPageServices();
+  const { loginMutation } = useServices();
 
   const submit = useCallback(
     async (
