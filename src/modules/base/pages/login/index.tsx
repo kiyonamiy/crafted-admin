@@ -1,6 +1,7 @@
-import * as Icons from "@ant-design/icons";
+import { LockOutlined, PhoneOutlined, UserOutlined } from "@ant-design/icons";
 import { createForm } from "@formily/core";
 import { Field, FormProvider } from "@formily/react";
+import { css } from "@linaria/core";
 import { Card, Input, Tabs } from "antd";
 import { MD5 } from "crypto-js";
 import { useCallback, useRef } from "react";
@@ -69,14 +70,14 @@ function Login() {
 
   return (
     <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: "#eeeeee",
-      }}
+      className={css`
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #eeeeee;
+      `}
     >
       <Card style={{ width: 400 }}>
         <Tabs
@@ -96,7 +97,7 @@ function Login() {
                       component={[
                         Input,
                         {
-                          prefix: <Icons.UserOutlined />,
+                          prefix: <UserOutlined />,
                           placeholder: "用户名",
                         },
                       ]}
@@ -109,7 +110,7 @@ function Login() {
                       component={[
                         Input.Password,
                         {
-                          prefix: <Icons.LockOutlined />,
+                          prefix: <LockOutlined />,
                           placeholder: "密码",
                         },
                       ]}
@@ -136,7 +137,7 @@ function Login() {
                       component={[
                         Input,
                         {
-                          prefix: <Icons.PhoneOutlined />,
+                          prefix: <PhoneOutlined />,
                           placeholder: "手机号",
                         },
                       ]}
@@ -149,7 +150,7 @@ function Login() {
                       component={[
                         Input.Password,
                         {
-                          prefix: <Icons.LockOutlined />,
+                          prefix: <LockOutlined />,
                           placeholder: "密码",
                         },
                       ]}

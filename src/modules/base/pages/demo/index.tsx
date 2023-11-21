@@ -1,3 +1,5 @@
+import { css } from "@linaria/core";
+
 import useReqMutation from "@/hooks/request/mutation";
 
 interface CreateTodoPayload {
@@ -26,7 +28,16 @@ function DemoPage() {
   });
 
   return (
-    <div>
+    <div
+      className={css`
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #eeeeee;
+      `}
+    >
       {createTodoMutation.isPending ? (
         "Adding todo..."
       ) : (
