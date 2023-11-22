@@ -1,7 +1,8 @@
+import "./index.less";
+
 import { LockOutlined, PhoneOutlined, UserOutlined } from "@ant-design/icons";
 import { createForm } from "@formily/core";
 import { Field, FormProvider } from "@formily/react";
-import { css } from "@linaria/core";
 import { Card, Input, Tabs } from "antd";
 import { MD5 } from "crypto-js";
 import { useCallback, useRef } from "react";
@@ -69,19 +70,10 @@ function Login() {
   );
 
   return (
-    <div
-      className={css`
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #eeeeee;
-      `}
-    >
-      <Card style={{ width: 400 }}>
+    <div className="login-page-container">
+      <Card className="login-card">
         <Tabs
-          style={{ overflow: "visible", marginTop: -10 }}
+          className="tabs"
           items={[
             {
               key: "normal",

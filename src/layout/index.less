@@ -1,0 +1,132 @@
+.layout-container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: row;
+
+  .layout__sider {
+    width: 20rem;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: 1rem 0 0.8rem 0 rgba(29, 35, 41, 0.05);
+    // 非常浅的黑色的（rgba(29, 35, 41, 0.05)）水平向右（1rem）阴影
+    // h-shadow = 1rem;
+    // v-shadow = 0;
+    // blur = 0.8rem;
+    // spread = 0;
+    // color = rgba(29, 35, 41, 0.05);
+
+    display: flex;
+    flex-direction: column;
+    // 与 antd menu 的动画保持一致，不会卡顿
+    transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+
+    &--collapsed {
+      width: 8rem;
+    }
+
+    .collapsed-button {
+      cursor: pointer;
+
+      height: 4rem;
+      line-height: 4rem;
+      padding: 0 1.6rem;
+      margin: 0.4rem 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      text-align: center;
+
+      &__icon {
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  .layout__logo {
+    height: 4.8rem;
+    background: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > img {
+      width: 2.4rem;
+    }
+    & > p {
+      margin-left: 0.5rem;
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      font-weight: 600;
+      display: var(--text-display);
+    }
+
+    &--collapsed {
+      display: none;
+    }
+  }
+
+  .layout__menu {
+    flex: 1;
+    overflow-y: scroll;
+
+    // 滚动条样式
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+      height: 0.5rem;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #cdcccc;
+      border-radius: 0.3rem;
+    }
+  }
+
+  .layout__main {
+    flex: 1;
+    background: #f0f2f5;
+    overflow: scroll;
+
+    .layout__header {
+      height: 4.8rem;
+      padding: 0 2rem;
+      background: #ffffff;
+      box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      gap: 1rem;
+
+      .avatar-container {
+        color: rgba(0, 0, 0, 0.85);
+        font-size: 1.4rem;
+
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
+
+    .layout__breadcrumb {
+      padding: 2rem;
+    }
+
+    .layout__content {
+      padding: 0 2rem 2rem 2rem;
+
+      scrollbar-width: 0.5rem;
+
+      &::-webkit-scrollbar-track {
+        background: #ededed;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #78797a;
+        border-radius: 3px;
+      }
+      &::-webkit-scrollbar-track {
+        background: none;
+      }
+    }
+  }
+}

@@ -2,12 +2,13 @@ import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 
 import useRequest, { RequestOptions } from "../base";
 
-type UseReqMutationOptions<R> = {
-  queryKey: UseQueryOptions<R, string>["queryKey"];
-} & Pick<RequestOptions, "url" | "header" | "payload"> &
-  Omit<UseQueryOptions<R, string>, "queryFn" | "queryKey">;
+type UseReqQueryOptions<R> = Pick<
+  RequestOptions,
+  "url" | "header" | "payload"
+> &
+  Omit<UseQueryOptions<R, string>, "queryFn">;
 
-const useReqQuery = <R>(options: UseReqMutationOptions<R>) => {
+const useReqQuery = <R>(options: UseReqQueryOptions<R>) => {
   const { url, header, payload, queryKey, ...queryOptions } = options;
 
   const request = useRequest();

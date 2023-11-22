@@ -10,7 +10,7 @@ const AntdProvider = ({ children }: AntdProviderProps) => {
       theme={{
         algorithm: [theme.defaultAlgorithm],
         token: {
-          colorPrimary: "#1890ff",
+          colorPrimary: "#3c6df0",
         },
         components: {
           Layout: {

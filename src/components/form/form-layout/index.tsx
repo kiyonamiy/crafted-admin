@@ -1,8 +1,8 @@
 /* eslint-disable */
+import cls from "classnames";
 import React, { createContext, useContext } from "react";
 
 import { usePrefixCls } from "../hooks";
-import cls from "../utils/classnames";
 import { useResponsiveFormLayout } from "./useResponsiveFormLayout";
 
 export interface IFormLayoutProps {

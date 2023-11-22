@@ -1,6 +1,7 @@
 /* eslint-disable */
 import "./style.less";
 
+import cls from "classnames";
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
@@ -10,7 +11,6 @@ import {
 import { isVoidField } from "@formily/core";
 import { connect, mapProps } from "@formily/react";
 import { ConfigProvider, Popover, Tooltip } from "antd";
-import cls from "../utils/classnames";
 import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { usePrefixCls } from "../hooks";
