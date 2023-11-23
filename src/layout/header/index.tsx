@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import { LocalKeyEnum } from "@/constants/local-key";
 import { RouteObjectEnum } from "@/constants/route-object";
+import { useUserInfoQuery } from "@/hooks/query";
+import { generateColorFromString } from "@/utils";
 import { LocalStorageUtils } from "@/utils/local-storage";
 
 import { useServices } from "../hooks/services";
@@ -13,8 +15,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const { logoutMutation } = useServices();
-
-  const name = "hello world";
+  const userInfoQuery = useUserInfoQuery();
 
   const items: MenuProps["items"] = useMemo(
     () => [
@@ -38,30 +39,34 @@ const Header = () => {
         },
       },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [name],
+    [logoutMutation, message, navigate],
   );
 
-  if (status === "loading") {
-    return <Spin />;
-  }
+  console.log(userInfoQuery.status);
 
   return (
     <div className="layout__header">
-      <Dropdown menu={{ items }}>
-        <div className="avatar-container">
-          <Avatar
-            style={{
-              // backgroundColor: generateColorFromString(name), // TODO
-              verticalAlign: "middle",
-            }}
-            size="small"
-          >
-            {name.slice(0, 1)}
-          </Avatar>
-          <span>{name}</span>
-        </div>
-      </Dropdown>
+      {}
+      {userInfoQuery.data != null ? (
+        <Dropdown menu={{ items }}>
+          <div className="avatar-container">
+            <Avatar
+              style={{
+                backgroundColor: generateColorFromString(
+                  userInfoQuery.data.name,
+                ),
+                verticalAlign: "middle",
+              }}
+              size="small"
+            >
+              {userInfoQuery.data.name.slice(0, 1)}
+            </Avatar>
+            <span>{userInfoQuery.data.name}</span>
+          </div>
+        </Dropdown>
+      ) : (
+        <Spin />
+      )}
     </div>
   );
 };

@@ -1,3 +1,5 @@
+// test data
+
 export default [
   {
     url: "/ca/login",
@@ -296,6 +298,30 @@ export default [
             id: 63,
           },
         ],
+      };
+    },
+  },
+  {
+    url: "/ca/user-info",
+    method: "get",
+    timeout: 500,
+    response: () => {
+      return {
+        code: 0,
+        message: "操作成功",
+        data: {
+          id: 24,
+          account: "admin",
+          phoneNumber: "1000000000",
+          name: "管理员",
+          roles: ["平台管理员"],
+          roleIds: [1],
+          institution: "管理员公司",
+          institutionId: 1,
+          createTime: "2023-10-30 18:19:29",
+          status: 1,
+          statusStr: "正常",
+        },
       };
     },
   },

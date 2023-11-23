@@ -1,3 +1,16 @@
+export interface UserInfo {
+  id: number;
+  account: string;
+  phoneNumber: string;
+  name: string;
+  roles: string[];
+  roleIds: number[];
+  institution: string;
+  institutionId: number;
+  createTime: string;
+  status: number;
+}
+
 export interface LoginResponseData {
   id: string;
   /**
