@@ -26,15 +26,22 @@
 
 ## 开发 TIPS
 
-- VSCode 插件：CSS Module、CSS Module、ESLint、Prettier（并设置 defaultFormatter）；
+- VSCode 插件：ESLint、Prettier（并设置 defaultFormatter）；
 - 在 CSS 中，不再直接使用 px 作为单位，而是使用 rem（1rem = 10px 设计稿换算）；
 - 不直接操作 localStorage，而是使用 utils 文件夹下的 LocalStorageUtils；所有的 key 值均需写在 local-key 中（不能直接写常量）；
 - 不额外使用 index.ts 做一次 import 再 export；
 - 全程使用 formily 来做表单相关开发；不额外引入 @formily/antd（因为滞后），使用 antd 组件改造成 formily 组件；
 - navigate 不直接填写 path，而是要使用 RoutePathEnum.XX.path；
-- service 导出均需外包一层 XxxService，而不是直接导出函数（目的是增加代码的可读性）；
-- 所有需要登录后访问的路由，最少要加上 `permissionCodes: []`；无 `element` 的路由可不添加；
+- 所有的数据请求，均使用本项目中封装的 useReqMutation 和 useReqQuery 两个 hooks 做数据请求；
 - （涉及到分页请求数据的）不直接使用 antd 的 Table，而是使用 `@/components/table`；
+
+## 关于新增路由
+
+1. 在 `modules` 对应模块中，新增页面；
+2. 在 `modules/index.tsx` 中，新增对页面的导出；
+3. 在 `constants/route-key.tsx` 中，添加枚举值，作为之后使用的 key 值；
+4. 在 `constants/route-object.tsx` 中，添加页面配置；
+5. （可选）在 `router/hooks/route-loaders.tsx` 中，自定义 loader；
 
 ## 关于 utils 说明
 

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { RouteKeyEnum } from "@/constants/route-key";
 import { RouteObjectEnum } from "@/constants/route-object";
+import { checkPermission } from "@/utils/permission";
 
 export const useMenuItems = () => {
   const navigate = useNavigate();
@@ -12,15 +13,12 @@ export const useMenuItems = () => {
     (parentKey?: RouteKeyEnum): MenuProps["items"] => {
       const result: MenuProps["items"] = [];
       Object.entries(RouteObjectEnum).forEach(([key, value]) => {
-        if (value?.parentKey === parentKey) {
+        if (value?.parentKey === parentKey && value.menu != null) {
+          const accessible =
+            value.permissionCodes == null ||
+            value.permissionCodes.every(checkPermission);
           // 符合权限的 menu
-          if (
-            value.menu != null
-            // TODO 权限
-            // &&
-            // (value.permissionCodes == null ||
-            //   value.permissionCodes.every(checkPermission))
-          ) {
+          if (accessible) {
             const menu: {
               key: RouteKeyEnum;
               label: string;

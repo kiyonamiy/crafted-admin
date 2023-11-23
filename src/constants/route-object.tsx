@@ -1,14 +1,13 @@
-import { UserOutlined } from "@ant-design/icons";
+import { DeploymentUnitOutlined, UserOutlined } from "@ant-design/icons";
 
+import { PermissionCodeEnum } from "./permission";
 import { RouteKeyEnum } from "./route-key";
 
 export interface RouteObject {
   path: string;
   description: string;
   parentKey?: RouteKeyEnum;
-  // access?: string;
-  // loader?: string;
-  // element?: string;
+  permissionCodes?: string[];
 
   // element 如果是 Layout，请设置为 true，设置后便能默认加载 children 的第一项
   isLayout?: boolean;
@@ -31,6 +30,21 @@ export const RouteObjectEnum: Record<RouteKeyEnum, RouteObject> = {
     menu: {
       icon: <UserOutlined />,
     },
+  },
+  [RouteKeyEnum.SYSTEM]: {
+    path: "/system",
+    description: "系统管理",
+    parentKey: RouteKeyEnum.ROOT,
+    menu: {
+      icon: <DeploymentUnitOutlined />,
+    },
+  },
+  [RouteKeyEnum.ROLE_MANAGEMENT]: {
+    path: "/system/role-management",
+    permissionCodes: [PermissionCodeEnum.ROLE.MODULE],
+    description: "角色管理",
+    parentKey: RouteKeyEnum.SYSTEM,
+    menu: {},
   },
   //   // ----------------------- 系统管理 -----------------------
   //   [RouteKeyEnum.SYSTEM]: {
@@ -62,14 +76,6 @@ export const RouteObjectEnum: Record<RouteKeyEnum, RouteObject> = {
   //     element: import("@/pages/system/permission"),
   //     permissionCodes: [PermissionCodeEnum.PERMISSION.MODULE],
   //     description: "权限点管理",
-  //     parentKey: RouteKeyEnum.SYSTEM,
-  //     menu: {},
-  //   },
-  //   [RouteKeyEnum.ROLE_MANAGEMENT]: {
-  //     path: "/system/role-management",
-  //     element: import("@/pages/system/role-management"),
-  //     permissionCodes: [PermissionCodeEnum.ROLE.MODULE],
-  //     description: "角色管理",
   //     parentKey: RouteKeyEnum.SYSTEM,
   //     menu: {},
   //   },

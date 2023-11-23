@@ -19,14 +19,18 @@ export const useRouter = () => {
           // 初始 route，赋值各个字段
           const route: RouteObject = {
             path: value.path,
-            lazy: async () => {
-              const Component = (await RouteElementEnum[key as RouteKeyEnum])
-                .default;
-              return {
-                element: <Component />,
-              };
-            },
             loader: loaderMap[key as RouteKeyEnum],
+            lazy:
+              RouteElementEnum[key as RouteKeyEnum] != null
+                ? async () => {
+                    const Component = (
+                      await RouteElementEnum[key as RouteKeyEnum]!
+                    ).default;
+                    return {
+                      element: <Component />,
+                    };
+                  }
+                : undefined,
           };
           // 递归构建 children
           route.children = generateRoutes(key as RouteKeyEnum);
