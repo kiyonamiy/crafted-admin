@@ -1,5 +1,6 @@
 import useReqMutation from "@/hooks/request/mutation";
 import { LoginResponseData } from "@/types/base";
+import { Permission } from "@/types/base/permission";
 
 import { LoginType } from "../../../types";
 
@@ -20,13 +21,13 @@ export const useServices = () => {
     method: "post",
   });
 
-  const logoutMutation = useReqMutation<undefined, void>({
-    url: "/ca/userLogout",
-    method: "post",
+  const listAllPermissionMutation = useReqMutation<void, Permission[]>({
+    url: "/ca/list-all-permission",
+    method: "get",
   });
 
   return {
     loginMutation,
-    logoutMutation,
+    listAllPermissionMutation,
   };
 };

@@ -1,32 +1,17 @@
-// eslint-disable-next-line react-refresh/only-export-components
-export enum RouteKeyEnum {
-  ROOT = "ROOT",
+import { UserOutlined } from "@ant-design/icons";
 
-  //   USER = "USER",
-  //   PERSONAL_INFORMATION = "PERSONAL_INFORMATION",
-  //   ROLE_MANAGEMENT = "ROLE_MANAGEMENT",
+import { RouteKeyEnum } from "./route-key";
 
-  //   SYSTEM = "SYSTEM",
-  //   USER_MANAGEMENT = "USER_MANAGEMENT",
-  //   INSTITUTION_MANAGEMENT = "INSTITUTION_MANAGEMENT",
-  //   TOPO_MANAGEMENT = "TOPO_MANAGEMENT",
-  //   TOPO_EDITOR = "TOPO_EDITOR",
-  //   PERMISSION = "PERMISSION",
-  //   DICT_MANAGEMENT = "DICT_MANAGEMENT",
-
-  LOGIN = "LOGIN",
-  PAGE_403 = "PAGE_403",
-  PAGE_404 = "PAGE_404",
-}
-
-// loader、element、menu.icon 均在 router 中做配置
 export interface RouteObject {
   path: string;
   description: string;
-  //   element?: string; // TODO 改为 map 的 key 值
-  //   loader?: string; // TODO 改为 map 的 key 值
-  access?: string[]; // 数组内的条件都满足才可以访问 // TODO 改为 map 的 key 值
   parentKey?: RouteKeyEnum;
+  // access?: string;
+  // loader?: string;
+  // element?: string;
+
+  // element 如果是 Layout，请设置为 true，设置后便能默认加载 children 的第一项
+  isLayout?: boolean;
   // 作为菜单
   menu?: {
     icon?: React.ReactNode;
@@ -37,23 +22,16 @@ export const RouteObjectEnum: Record<RouteKeyEnum, RouteObject> = {
   [RouteKeyEnum.ROOT]: {
     path: "/",
     description: "根路由",
+    isLayout: true,
   },
-  //   // ----------------------- 账户中心 -----------------------
-  //   [RouteKeyEnum.USER]: {
-  //     path: "/user",
-  //     description: "账户中心",
-  //     parentKey: RouteKeyEnum.ROOT,
-  //     menu: {
-  //       icon: <Icons.UserOutlined />,
-  //     },
-  //   },
-  //   [RouteKeyEnum.PERSONAL_INFORMATION]: {
-  //     path: "/user/personal-information",
-  //     element: import("@/pages/user/personal-information"),
-  //     description: "个人信息",
-  //     parentKey: RouteKeyEnum.USER,
-  //     menu: {},
-  //   },
+  [RouteKeyEnum.PERSONAL_INFORMATION]: {
+    path: "/personal-information",
+    description: "个人信息",
+    parentKey: RouteKeyEnum.ROOT,
+    menu: {
+      icon: <UserOutlined />,
+    },
+  },
   //   // ----------------------- 系统管理 -----------------------
   //   [RouteKeyEnum.SYSTEM]: {
   //     path: "/system",

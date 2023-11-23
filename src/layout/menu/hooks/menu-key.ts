@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { RouteKeyEnum } from "@/constants/route-object";
+import { RouteKeyEnum } from "@/constants/route-key";
 import { useRouteFullPath } from "@/hooks/route";
 
 export const useMenuKey = () => {

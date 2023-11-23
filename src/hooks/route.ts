@@ -1,11 +1,8 @@
 import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 
-import {
-  RouteKeyEnum,
-  RouteObject,
-  RouteObjectEnum,
-} from "@/constants/route-object";
+import { RouteKeyEnum } from "@/constants/route-key";
+import { RouteObject, RouteObjectEnum } from "@/constants/route-object";
 
 /**
  * 返回路由的 key 和 routePath

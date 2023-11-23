@@ -2,7 +2,8 @@ import { MenuProps } from "antd";
 import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { RouteKeyEnum, RouteObjectEnum } from "@/constants/route-object";
+import { RouteKeyEnum } from "@/constants/route-key";
+import { RouteObjectEnum } from "@/constants/route-object";
 
 export const useMenuItems = () => {
   const navigate = useNavigate();

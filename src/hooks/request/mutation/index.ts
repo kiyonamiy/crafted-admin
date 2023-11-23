@@ -10,7 +10,7 @@ type UseReqMutationOptions<P, R> = Pick<
 
 const useReqMutation = <
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  P extends Record<string, any> | undefined = undefined,
+  P extends Record<string, any> | void = void,
   R = void,
 >(
   options: UseReqMutationOptions<P, R>,
@@ -25,7 +25,7 @@ const useReqMutation = <
         url: url,
         method: method,
         header: header,
-        payload,
+        payload: payload ?? undefined,
       });
     },
     ...mutationOptions,
