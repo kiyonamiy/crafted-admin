@@ -42,8 +42,6 @@ const Header = () => {
     [logoutMutation, message, navigate],
   );
 
-  console.log(userInfoQuery.status);
-
   return (
     <div className="layout__header">
       {}

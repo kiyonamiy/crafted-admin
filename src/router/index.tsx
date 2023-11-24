@@ -4,9 +4,6 @@ import { RouterProvider } from "react-router-dom";
 import { useRouter } from "./hooks/router";
 
 export default function Router() {
-  const { router, isLoading } = useRouter();
-  if (isLoading || router == null) {
-    return <Spin />;
-  }
+  const router = useRouter();
   return <RouterProvider router={router} fallbackElement={<Spin />} />;
 }

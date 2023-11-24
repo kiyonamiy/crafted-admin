@@ -325,4 +325,28 @@ export default [
       };
     },
   },
+  {
+    url: "/ca/manager/user/update",
+    method: "post",
+    timeout: 500,
+    response: () => {
+      return {
+        code: 0,
+        message: "操作成功",
+        data: null,
+      };
+    },
+  },
+  {
+    url: "/ca/manager/user/update/password",
+    method: "post",
+    timeout: 500,
+    response: () => {
+      return {
+        code: 0,
+        message: "操作成功",
+        data: null,
+      };
+    },
+  },
 ];

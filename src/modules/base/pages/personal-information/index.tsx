@@ -7,6 +7,9 @@ import React from "react";
 import { useUserInfoQuery } from "@/hooks/query";
 import { generateColorFromString } from "@/utils";
 
+import { useHandleEditBtnClick } from "./hooks/handle-edit-btn-click";
+import { useHandleEditPasswordBtnClick } from "./hooks/handle-edit-password-btn-click";
+
 const LabelValue = ({
   label,
   value,
@@ -25,6 +28,9 @@ const LabelValue = ({
 function PersonalInformation() {
   const userInfoQuery = useUserInfoQuery();
 
+  const handleEditBtnClick = useHandleEditBtnClick();
+  const handleEditPasswordBtnClick = useHandleEditPasswordBtnClick();
+
   const labelvalues: { label: string; value: React.ReactNode }[] = [
     {
       label: "登录账号",
@@ -32,7 +38,12 @@ function PersonalInformation() {
     },
     {
       label: "账号密码",
-      value: "******",
+      value: (
+        <div className="value__password-container">
+          ********
+          <a onClick={() => void handleEditPasswordBtnClick()}>修改密码</a>
+        </div>
+      ),
     },
     {
       label: "加入时间",
@@ -40,11 +51,11 @@ function PersonalInformation() {
     },
     {
       label: "状态",
-      value: "正常",
+      value: "正常", // TODO 状态显示，请求枚举
     },
     {
       label: "角色信息",
-      value: "超级管理员",
+      value: "超级管理员", // TODO 角色显示
     },
     {
       label: "手机号",
@@ -83,7 +94,7 @@ function PersonalInformation() {
               <Button
                 type="primary"
                 icon={<EditOutlined />}
-                // onClick={() => void handleEdit(userInfo)}
+                onClick={() => void handleEditBtnClick(userInfoQuery.data)}
               >
                 编辑
               </Button>

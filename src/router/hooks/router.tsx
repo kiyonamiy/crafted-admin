@@ -1,5 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { createBrowserRouter, Navigate, RouteObject } from "react-router-dom";
 
 import { RouteKeyEnum } from "@/constants/route-key";
@@ -61,15 +60,11 @@ export const useRouter = () => {
     [loaderMap],
   );
 
-  const { data: router, isLoading } = useQuery({
-    queryKey: ["ROUTER"],
-    queryFn: () => {
-      const routes = generateRoutes();
-      return createBrowserRouter(routes);
-    },
-    refetchOnWindowFocus: false,
-    staleTime: Infinity,
-    gcTime: Infinity,
-  });
-  return { router, isLoading };
+  const router = useMemo(() => {
+    const routes = generateRoutes();
+    return createBrowserRouter(routes);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return router;
 };
