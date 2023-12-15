@@ -30,6 +30,23 @@ export default [
         };
       }
 
+      console.log(body);
+
+      if (
+        "phoneNumber" in body &&
+        "password" in body &&
+        body.loginType === 1 &&
+        body.phoneNumber === "10000000000" &&
+        // md5 admin 的结果
+        body.password === "21232f297a57a5a743894a0e4a801fc3"
+      ) {
+        return {
+          code: 0,
+          message: "操作成功",
+          data: { id: 110, name: "kiyonami", token: "faketoken" },
+        };
+      }
+
       return {
         code: 401,
         message: "认证失败",
